@@ -1,4 +1,4 @@
-package com.example.projet_tdm_medcin.ui
+package com.example.projet_tdm_medcin.entity
 
 class OnBoardingItem {
     var image = 0

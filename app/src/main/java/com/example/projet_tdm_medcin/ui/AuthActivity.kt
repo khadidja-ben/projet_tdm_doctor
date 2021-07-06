@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.example.projet_tdm.retrofit.RetrofitService
 import com.example.projet_tdm_medcin.R
 import com.example.projet_tdm_medcin.entity.Doctor
+import com.example.projet_tdm_medcin.ui.bookings.MainActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,9 +35,15 @@ class AuthActivity : AppCompatActivity() {
                 if (response.isSuccessful){
                     if (res!= null){
                         Toast.makeText(this@AuthActivity, "Welcome !", Toast.LENGTH_SHORT).show()
+
                         val pref = applicationContext.getSharedPreferences("myPrefs", MODE_PRIVATE)
                         val editor = pref.edit()
                         editor.putBoolean("connected", true)
+                        editor.putInt("idDoctor", res.idDoctor)
+                        editor.putString("nameDoctor", res.nameDoctor)
+                        editor.putString("lastNameDoctor", res.lastNameDoctor)
+                        editor.putString("img", res.imageDoctor)
+
                         editor.commit()
                         val mainActivity = Intent(applicationContext, MainActivity::class.java)
                         startActivity(mainActivity)

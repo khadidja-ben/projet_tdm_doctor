@@ -68,7 +68,7 @@ app.post('/patient',function(req,res){
 app.get('/patientAuth/:phone/:pwd',function(req,res){  
     var query = "select * from authpatient natural join patients where phonePatient=? and password=?";
     connection.query(query,[req.params.phone,req.params.pwd],function(error,results){
-
+        var data = Object() 
         if (error) { 
             throw(error) 
         }else{
@@ -158,9 +158,9 @@ app.get('/booking',function(req,res){
 });
 
 // get all bookings of a doctor (given id in parametres)
-app.get('/bookingDoctor/:idDoctor',function(req,res){ 
-    var query = "select * from  bookings natural join doctors where idDoctor=?"; 
-    connection.query(query,[req.params.idDoctor],function(error,results){
+app.get('/bookingDoctor/:idDoctor/:bookingDate',function(req,res){ 
+    var query = "select * from  bookings natural join doctors natural join patients where idDoctor=? and bookingDate=?"; 
+    connection.query(query,[req.params.idDoctor, req.params.bookingDate],function(error,results){
         if (error) { 
             throw(error) 
         } else {
@@ -197,11 +197,27 @@ app.get('/booking/:id',function(req,res){
     })
 });
 
+//get booking by its codeQR
+app.get('/bookingCodeQR/:codeQR', function(req, res){
+    var data = Object() 
+    var query = "select * from bookings natural join patients where codeQR=?";
+    connection.query(query,[req.params.codeQR],function(error,results){
+        if (error) { 
+            throw(error) 
+        } else {
+            if(results.length>0) {
+                data = results[0]
+            }
+            res.send(JSON.stringify(data));
+        }
+    })
+})
+
 // check if a booking already exists by testing if the date and time given by the user already exists 
 app.get('/bookingExiste',function(req,res){  
     var query = "select bookingDate, bookingTime from bookings where bookingDate=? and bookingTime=?";
     connection.query(query,[req.body.bookingDate,req.body.bookingTime],function(error,results){
-        console.log(results.length); 
+        //console.log(results.length); 
         if (error) { 
             throw(error) 
         } else {
@@ -369,6 +385,7 @@ app.post('/doctor',function(req,res){
 
 // authentification for a doctor (using the hashing function md5)
 app.get('/doctorAuth/:phone/:pwd',function(req,res){  
+    var data = Object() 
     var query = "select * from authdoctor inner join doctors on doctors.idDoctor = authdoctor.idDoctor where authdoctor.phoneDoctor=? and authdoctor.password=?";
 
     connection.query(query,[req.params.phone, req.params.pwd],function(error,results){
@@ -465,7 +482,7 @@ app.get('/disease/:id',function(req,res){
 /***************************************************************************************************************************/
 // End add new stock
 
-    var server = app.listen(8000,function(){
+    var server = app.listen(8888,function(){
     var host = server.address().address
     var port = server.address().port
-});
+});    

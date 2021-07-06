@@ -1,14 +1,17 @@
-package com.example.projet_tdm_medcin.ui
+package com.example.projet_tdm_medcin.ui.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projet_tdm_medcin.ui.bookings.DetailBookingActivity
 import com.example.projet_tdm_medcin.R
 import com.example.projet_tdm_medcin.entity.Booking
 
-class BookingAdapter: RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
+class BookingAdapter(val context: Context): RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
 
     private val bookings = mutableListOf<Booking>()
 
@@ -21,9 +24,15 @@ class BookingAdapter: RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
 
     override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
         val booking = bookings[position]
-        holder.date.text = booking.bookingDate.toString()
-        holder.heure.text = booking.bookingTime.toString()
-        holder.medecin.text = booking.idDoctor.toString()
+        holder.date.text = booking.bookingDate
+        holder.heure.text = booking.bookingTime
+        holder.patient.text = booking.namePatient
+
+        holder.itemView.setOnClickListener(){
+            val intent = Intent(context, DetailBookingActivity::class.java)
+            intent.putExtra("booking",bookings[position])
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -40,7 +49,7 @@ class BookingAdapter: RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
 
         val date: TextView = view.findViewById(R.id.viewDate)
         val heure: TextView = view.findViewById(R.id.viewTime)
-        val medecin: TextView = view.findViewById(R.id.viewDoctorName)
+        val patient: TextView = view.findViewById(R.id.viewPatientName)
 
     }
 }

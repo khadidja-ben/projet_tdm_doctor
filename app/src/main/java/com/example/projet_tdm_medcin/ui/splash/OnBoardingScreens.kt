@@ -1,4 +1,4 @@
-package com.example.projet_tdm_medcin.ui
+package com.example.projet_tdm_medcin.ui.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -12,6 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.projet_tdm_medcin.R
+import com.example.projet_tdm_medcin.entity.OnBoardingItem
+import com.example.projet_tdm_medcin.ui.AuthActivity
+import com.example.projet_tdm_medcin.ui.bookings.MainActivity
 import com.example.projet_tdm_medcin.ui.adapters.OnBoardingAdapter
 
 
@@ -101,30 +104,26 @@ class OnBoardingScreens : AppCompatActivity() {
     private fun setOnboardingItem() {
         val onBoardingItems: MutableList<OnBoardingItem> = mutableListOf()
         val item1 = OnBoardingItem()
-        item1.title="Consultez vous traitements"
-        item1.description="Vous pouvez consulter vos traitements via l'application!"
+        item1.title="Consultez vos rendez-vous"
+        item1.description="Vous pouvez consulter vos rendez-vous via l'application!"
         item1.image=R.drawable.on_boarding_screen1
 
         val item2 = OnBoardingItem()
-        item2.title="Contactez un medecin"
-        item2.description="Vous pouvez contacter un medecin directemeent via l'application!"
-        item2.image=R.drawable.on_boarding_screen2
+        item2.title="Scannez un code QR"
+        item2.description="Vous pouvez accéder à un rendez-vous directemeent en scannant QRcode!"
+        item2.image=R.drawable.on_boarding_screen4
 
         val item3 = OnBoardingItem()
 
-        item3.title="Prennez un rendez-vous"
-        item3.description="Vous pouvez reserver directement via l'application!"
+        item3.title="Restez à jour"
+        item3.description="Vous serez notifier à chaque prise de rendez-vous!"
         item3.image=R.drawable.on_boarding_screen3
 
-        val item4 = OnBoardingItem()
-        item4.title="Demmander conseil"
-        item4.description="Vous pouvez contacter un medecin et demander conseil!"
-        item4.image=R.drawable.on_boarding_screen4
+
 
         onBoardingItems.add(item1);
         onBoardingItems.add(item2);
         onBoardingItems.add(item3);
-        onBoardingItems.add(item4);
 
         onboardingAdapter = OnBoardingAdapter(onBoardingItems);
     }

@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projet_tdm_medcin.databinding.ItemLayoutBinding
-import com.example.projet_tdm_medcin.ui.OnBoardingItem
+import com.example.projet_tdm_medcin.entity.OnBoardingItem
 
-class OnBoardingAdapter(private val onBoardingItems: MutableList<com.example.projet_tdm_medcin.ui.OnBoardingItem>) :
+class OnBoardingAdapter(private val onBoardingItems: MutableList<OnBoardingItem>) :
     RecyclerView.Adapter<OnBoardingAdapter.OnBoardingViewHolder>() {
 
 
